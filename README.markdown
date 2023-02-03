@@ -15,13 +15,15 @@ Customization
 
 You can add your own word groups:
 
-    call AddCycleGroup(['one', 'two', 'three'])
+    let g:cycle_group = [['one', 'two', 'three']]
 
 To deal with conflicts, Cycle.vim also supports adding groups that are specific
 to a certain filetype:
 
-    call AddCycleGroup('ruby', ['class', 'module'])
-    call AddCycleGroup('python', ['else', 'elif'])
+    let g:cycle_group_filetype = {
+        \ 'ruby': [['class', 'module']],
+        \ 'python': [['else', 'elif']]
+        \ }
 
 When multiple groups define the same word, groups belonging to specific
 filetypes will be used instead of global groups. This is useful in the cases
@@ -30,7 +32,7 @@ above, since in HTML we would want `class` to cycle with `id` and Python uses
 
 Providing a list of filetypes is also supported:
 
-    call AddCycleGroup(['ruby', 'eruby', 'perl'], ['else', 'elsif'])
+    let g:cycle_group_filetype = { ['ruby', 'eruby', 'perl']: ['else', 'elsif']}
 
 However, if there are no conflicting cases it is preferable to define all cycle
 groups in the global namespace, using filetype-specific groups only in case of

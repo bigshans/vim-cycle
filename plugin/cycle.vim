@@ -1,10 +1,5 @@
 " cycle.vim - Toggle between related words
 
-" if exists("g:loaded_cycle")
-"   finish
-" endif
-" let g:loaded_cycle = 1
-
 let s:options = {}
 
 let s:options['global'] = [
@@ -220,6 +215,20 @@ call AddCycleGroup('swift', ['let', 'var'])
 call AddCycleGroup('swift', ['open', 'public', 'internal', 'fileprivate', 'private'])
 call AddCycleGroup('swift', ['class', 'struct', 'enum', 'protocol', 'extension'])
 call AddCycleGroup('swift', ['set', 'get'])
+
+if exists("g:cycle_group")
+    for item in g:cycle_group
+        call AddCycleGroup(item)
+    endfor
+endif
+
+if exists("g:cycle_group_filetype")
+    for [key, val] in items(g:cycle_group_filetype)
+        for it in val
+            call AddCycleGroup(key, it)
+        endfor
+    endfor
+endif
 
 nnoremap <silent> <Plug>CycleNext     :<C-U>call <SID>Cycle(1)<CR>
 nnoremap <silent> <Plug>CyclePrevious :<C-U>call <SID>Cycle(-1)<CR>
